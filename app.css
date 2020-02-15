@@ -1,0 +1,59 @@
+/* Your styles should be mobile-first and responsive */
+
+/** 
+  * If you are unclear on how to utilize a mobile-first, responsive technique to write your CSS, here is an example: 
+  *
+  * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
+  *
+*/
+
+/* Button Actions */
+/* #js-start-btn {
+}
+
+#js-next-btn {
+}
+
+#js-restart-btn {
+} */
+
+#intro-page {
+  display: flex;
+  justify-content: center;
+}
+
+.circle {
+  height: 400px;
+  border-radius: 50%;
+  border: 11px solid black;
+}
+
+img:hover {
+  transform: scale(1.05);
+}
+
+#answer,
+#btnAnswer {
+  display: inline-block;
+}
+
+#rick-intro {
+  display: flex;
+  justify-content: center;
+}
+
+#intro-info {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#schwift {
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+}
+
+#next-question {
+  display: none;
+}
