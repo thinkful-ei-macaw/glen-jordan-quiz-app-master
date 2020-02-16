@@ -40,20 +40,29 @@ img:hover {
 #rick-intro {
   display: flex;
   justify-content: center;
+  margin-top: 60px;
+  font-size: 34px;
 }
 
 #intro-info {
-  display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: left;
   flex-wrap: wrap;
+  padding-top: 60px;
+  padding-left: 90px;
 }
 
 #schwift {
-  display: flex;
-  justify-content: center;
   margin-top: 2%;
 }
 
 #next-question {
   display: none;
+}
+
+body {
+  background-image: url('./Images/mortybackground.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: fixed;
 }

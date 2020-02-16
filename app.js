@@ -151,17 +151,18 @@ function generateWrong(input) {
 //RENDER CORRECT ANSWER RESPONSE
 
 function renderCorrect() {
-  let currectCorrect = store.correctOrNot[store.num].correct;
-  let html = generateCorrect(currectCorrect);
+  let html = generateCorrect();
   $('main').html(html);
 }
 
-function generateCorrect(input) {
+function generateCorrect() {
+  let currentCorrect = store.correctOrNot[store.num].correct;
   return `
   <section>
-    <form>     
-        ${input}
-        <button type="button" id="next-question">Next</button>
+    <form>
+      <h1>${currentCorrect}</h1>
+      <p>That was correct</p>
+      <button type="button" id="next-question">Next</button>
     </form>
   </section>`;
 }
@@ -228,31 +229,20 @@ function registerListeners() {
 
 function renderFirstPage() {
   $('main').html(`
-  
   <header id="rick-intro">
-  
-  <h1>THE RICK AND MORTY QUIZ</h1>
-  
+    <h1>THE RICK AND MORTY QUIZ</h1>
   </header>
-
-<div id="intro-page">
-
-<img class="circle" src=./Images/dance.gif />
-
-</div>
-
-<div id="intro-info">
-<h3>
-It's time to do some Rick and Morty trivia and only the Rickest of Ricks will be able to pass.
-</h3>
-</div>
-
-<div id="schwift">
-
-<button id="js-start-btn">GET SCHWIFTY</button>
-
-</div>
-
+  <div id="intro-page">
+  </div>
+  <div id="intro-info">
+        <h2> The Best Rick and Morty quiz ever </h2>
+        <h3>
+        It's time to do some Rick and Morty trivia and only the Rickest of Ricks will be able to pass.
+    </h3>
+    <div id = "schwift">
+      <button id = "js-start-btn">GET SCHWIFTY</button> 
+    </div>
+  </div>
 `);
 }
 
