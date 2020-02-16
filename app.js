@@ -4,6 +4,9 @@
  * Example store structure
  */
 
+//Display score along side question number
+//show correct answer if you get it wrong
+
 const store = {
   // 5 or more questions are required
   questions: [
@@ -69,7 +72,6 @@ const store = {
       incorrect: 'CONSPIRING WITH A ROGUE SUMMER I SEE...'
     }
   ],
-  questionNumber: 0,
   score: 0,
   wrong: 0,
   num: 0,
@@ -86,7 +88,7 @@ function clickMe() {
 //FUNCTIONS FOR CURRENT QUESTION IN STORE OBJECT
 function getCurrentQuestion() {
   const questionArr = store.questions;
-  let currentQuestion = questionArr[store.questionNumber];
+  let currentQuestion = questionArr[store.num];
   return currentQuestion;
 }
 
@@ -102,8 +104,11 @@ function generateQuestion(question) {
   <header>
     <ul>
       <li>
-          Question ${store.questionNumber + 1} of ${store.questions.length}
+          Question ${store.num + 1} of ${store.questions.length}
       </li> 
+      <li>
+          Your Current Score is ${store.score}
+      </li>
     <ul>
   </header>
   <img src=${question.imgUrl} />
@@ -123,21 +128,21 @@ function generateQuestion(question) {
 
 //RENDER WRONG ANSWER RESPONSE
 
-function renderWrong() {
-  let currentWrong = incorrectAnswer();
-  let html = generateWrong(currentWrong);
+function renderWrong(answer) {
+  let html = generateWrong(answer);
   $('main').html(html);
 }
 
-function incorrectAnswer() {
-  return store.correctOrNot[store.num].incorrect;
-}
-
 function generateWrong(input) {
+  let currentWrong = store.correctOrNot[store.num].incorrect;
   return `
   <section>
     <form>
-        ${input}     
+        <h1>${currentWrong}</h1> 
+        <p>You chose "${input}"</p> 
+        <p>The correct answer was "${
+          store.questions[store.num].correctAnswer
+        }"</p>
         <button type="button" id="next-question">Next</button>
     </form>
   </section>`;
@@ -146,19 +151,15 @@ function generateWrong(input) {
 //RENDER CORRECT ANSWER RESPONSE
 
 function renderCorrect() {
-  let currectCorrect = correctAnswer();
+  let currectCorrect = store.correctOrNot[store.num].correct;
   let html = generateCorrect(currectCorrect);
   $('main').html(html);
-}
-
-function correctAnswer() {
-  return store.correctOrNot[store.num].correct;
 }
 
 function generateCorrect(input) {
   return `
   <section>
-    <form>
+    <form>     
         ${input}
         <button type="button" id="next-question">Next</button>
     </form>
@@ -166,18 +167,30 @@ function generateCorrect(input) {
 }
 
 function generateScore() {
-  return `<div class='scoreDiv'>
-      <p>Your current Score is ${store.score}</p>
-      </div>`;
+  if (store.score === 0) {
+    return `<div class='scoreDiv'>
+    <p>Your current Score is ${store.score} YOU GOT NONE OF THEM RIGHT!!</p>
+    </div>`;
+  } else if (store.score > 0 && store.score < store.questions.length) {
+    return `<div class='scoreDiv'>
+    <p>Your current Score is ${store.score} Not too bad, but you can do better!</p>
+    </div>`;
+  } else if (store.score === store.questions.length) {
+    return `<div class='scoreDiv'>
+    <p>Your current Score is ${store.score} YOU ARE THE RICKEST OF RICKS!</p>
+    </div>`;
+  }
 }
+
+//FINAL PAGE DISPLAY FUNCTIONS
 
 //RESET QUIZ TO BEGINNING
 function resetQuiz() {
   const score = generateScore();
   $('main').html(`${score}<button id="goBack">Click Me</button>`);
   $('main').on('click', '#goBack', function() {
-    store.questionNumber = 0;
     store.num = 0;
+    store.score = 0;
     renderFirstPage();
   });
 }
@@ -193,11 +206,10 @@ function registerListeners() {
       $('main').append(renderCorrect());
     } else {
       store.wrong += 1;
-      $('main').append(renderWrong());
+      $('main').append(renderWrong(userAnswer));
     }
 
     store.num += 1;
-    store.questionNumber += 1;
 
     $('#next-question').show();
   });
@@ -206,7 +218,7 @@ function registerListeners() {
     //make a button on the last page that is a listener
     e.preventDefault();
 
-    if (store.questionNumber === store.questions.length) {
+    if (store.num === store.questions.length) {
       resetQuiz();
     } else {
       renderQuestion();
