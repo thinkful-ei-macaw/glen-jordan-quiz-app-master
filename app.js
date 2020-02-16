@@ -19,8 +19,7 @@ const store = {
         "I'm in great pain"
       ],
       correctAnswer: "I'm in great pain",
-      imgUrl:
-        'https://media1.giphy.com/media/wFbI8gwCfCxeo/giphy.gif?cid=790b7611dd0e3159809d12d9b3d4485a28d00299967efaa9&rid=giphy.gif'
+      imgUrl: "url('./Images/peaceful.jpg')"
     },
     {
       question: ' Name the song Rick uses to save the earth',
@@ -101,7 +100,9 @@ function renderQuestion() {
 function generateQuestion(question) {
   return `
   
+ 
   <header>
+  ${store.questions[0].imgUrl}
     <ul>
       <li>
           Question ${store.num + 1} of ${store.questions.length}
@@ -111,8 +112,6 @@ function generateQuestion(question) {
       </li>
     <ul>
   </header>
-  <img src=${question.imgUrl} />
-  
   <section>${question.question}</section>
       <form>  
         ${question.answers
@@ -237,7 +236,8 @@ function renderFirstPage() {
   <div id="intro-info">
         <h2> The Best Rick and Morty quiz ever </h2>
         <h3>
-        It's time to do some Rick and Morty trivia and only the Rickest of Ricks will be able to pass.
+        <p>It's time to do some Rick and Morty trivia!</p>
+        <p>ONLY the Rickest of Ricks will be able to pass.</p>
     </h3>
     <div id = "schwift">
       <button id = "js-start-btn">GET SCHWIFTY</button> 
