@@ -89,11 +89,16 @@ function clickMe() {
 function getCurrentQuestion() {
   const questionArr = store.questions;
   let currentQuestion = questionArr[store.questionNumber];
+  console.log(currentQuestion);
   return currentQuestion;
 }
 
+function getWrongAnswer() {
+  const wrongArr = store.thatPage;
+  return wrongArr;
+}
+
 function generateQuestion(question) {
-  // console.log(question);
   return `
   
   <img src=${question.imgUrl} />
@@ -112,16 +117,15 @@ function generateQuestion(question) {
       </form>`;
 }
 
-function derp(something) {
-  return `<form>
-  
-    ${something.response.map(e => {
-        return `<p>${e}</p>`
-
-    })
-  
-  
-  </form>`;
+function generateWrong(input) {
+  return `
+  <section>
+    <form>
+        ${input.map(e => {
+          return `<p>$${e}</p>`;
+        })};
+    </form>
+  </section>`;
 }
 
 function renderQuestion() {
@@ -130,8 +134,13 @@ function renderQuestion() {
   $('main').html(html);
 }
 
+function renderWrong() {
+  let currentWrong = getWrongAnswer();
+  let html = generateWrong(currentWrong);
+  $('main').html(html);
+}
+
 function registerListeners() {
-  console.log(getCurrentQuestion());
   $('main').on('submit', 'form', function(e) {
     e.preventDefault();
     let currentQuestion = getCurrentQuestion();
