@@ -15,7 +15,9 @@ const store = {
         "Let's Party",
         "I'm in great pain"
       ],
-      correctAnswer: "I'm in great pain"
+      correctAnswer: "I'm in great pain",
+      imgUrl:
+        'https://media1.giphy.com/media/wFbI8gwCfCxeo/giphy.gif?cid=790b7611dd0e3159809d12d9b3d4485a28d00299967efaa9&rid=giphy.gif'
     },
     {
       question: ' Name the song Rick uses to save the earth',
@@ -25,12 +27,15 @@ const store = {
         'Do the Bingortz',
         'Stop, Drop, and Slitz'
       ],
-      correctAnswer: 'Get Schwifty'
+      correctAnswer: 'Get Schwifty',
+      imgUrl:
+        'https://media1.giphy.com/media/tJqyalvo9ahykfykAj/giphy.gif?cid=790b7611dd0e3159809d12d9b3d4485a28d00299967efaa9&rid=giphy.gif'
     },
     {
       question: 'Which implement does Rick use to travel between dimensions?',
       answers: ['Rift Ray', 'Jump Laser', 'Interdimensional Ray', 'Portal Gun'],
-      correctAnswer: 'Portal Gun'
+      correctAnswer: 'Portal Gun',
+      imgUrl: './Images/wrecked.gif'
     },
     {
       question:
@@ -49,9 +54,27 @@ const store = {
       correctAnswer: 'Welcome to your nightmare, bitch!'
     }
   ],
+  correctOrNot: [
+    { correct: 'GET SCHWIFTY!', incorrect: 'NOPE!' },
+
+    { correct: 'THE RICKEST OF RICKS!', incorrect: 'HA HA NO...' },
+
+    { correct: 'TURBULENT JUICE!', incorrect: 'THE GODS ARE LAUGHING AT YOU' },
+
+    { correct: 'YOU GET REAL FAKE DOORS!', incorrect: 'NO EYEHOLES FOR YOU' },
+
+    {
+      correct: 'THE CITIDEL OF RICKS WELCOMES YOU!',
+      incorrect: 'CONSPIRING WITH A ROGUE SUMMER I SEE...'
+    }
+  ],
+
+  thatPage: [{ response: 'DUDE!' }, { response: 'LOL!' }],
+
   questionNumber: 0,
   score: 0,
   wrong: 0,
+  num: 0,
   quizStart: false
 };
 
@@ -70,18 +93,35 @@ function getCurrentQuestion() {
 }
 
 function generateQuestion(question) {
-  console.log(question);
-  return `<section>${question.question}</section>
+  // console.log(question);
+  return `
+  
+  <img src=${question.imgUrl} />
+  
+  <section>${question.question}</section>
       <form>  
         ${question.answers
           .map((e, index) => {
             return `<input id="answer ${index}" name="questionDisplay" type="radio" value="${e}" required />
-            <label id="btnAnswers" for="answer${index}">${e}</label>`;
+            <label id="btnAnswers" for="answer${index}">${e}</label>
+            <br>`;
           })
           .join('')}
           <button type="submit" id="submit-button">Submit</button>
           <button type="button" id="next-question">Next</button>
       </form>`;
+}
+
+function derp(something) {
+  return `<form>
+  
+    ${something.response.map(e => {
+        return `<p>${e}</p>`
+
+    })
+  
+  
+  </form>`;
 }
 
 function renderQuestion() {
@@ -91,6 +131,7 @@ function renderQuestion() {
 }
 
 function registerListeners() {
+  console.log(getCurrentQuestion());
   $('main').on('submit', 'form', function(e) {
     e.preventDefault();
     let currentQuestion = getCurrentQuestion();
@@ -98,15 +139,17 @@ function registerListeners() {
 
     if (userAnswer === currentQuestion.correctAnswer) {
       store.score += 1;
-      $('main').append('correct');
+      $('main').append(correctAnswer());
     } else {
       store.wrong += 1;
-      $('main').append('incorrect');
+      $('main').append(incorrectAnswer());
     }
 
+    store.num += 1;
     store.questionNumber += 1;
 
     $('#submit-button').hide();
+
     $('#next-question').show();
   });
 
@@ -120,6 +163,13 @@ function registerListeners() {
       renderQuestion();
     }
   });
+}
+
+function correctAnswer() {
+  $('main').append(store.correctOrNot[store.num].correct);
+}
+function incorrectAnswer() {
+  $('main').append(store.correctOrNot[store.num].incorrect);
 }
 
 function generateScore() {
@@ -155,7 +205,7 @@ function renderFirstPage() {
 
 <div id="intro-page">
 
-<img class="circle" src=https://media0.giphy.com/media/OFbrZqxNMu7Ic/giphy.webp?cid=790b7611ebb9f60c4e01f9c285354c380cf85dadcbefabed&rid=giphy.webp />
+<img class="circle" src=https://media1.giphy.com/media/wFbI8gwCfCxeo/giphy.gif?cid=790b7611dd0e3159809d12d9b3d4485a28d00299967efaa9&rid=giphy.gif />
 
 </div>
 
