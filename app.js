@@ -68,9 +68,6 @@ const store = {
       incorrect: 'CONSPIRING WITH A ROGUE SUMMER I SEE...'
     }
   ],
-
-  thatPage: [{ response: 'DUDE!' }, { response: 'LOL!' }],
-
   questionNumber: 0,
   score: 0,
   wrong: 0,
@@ -89,13 +86,7 @@ function clickMe() {
 function getCurrentQuestion() {
   const questionArr = store.questions;
   let currentQuestion = questionArr[store.questionNumber];
-  console.log(currentQuestion);
   return currentQuestion;
-}
-
-function getWrongAnswer() {
-  const wrongArr = store.thatPage;
-  return wrongArr;
 }
 
 function generateQuestion(question) {
@@ -121,12 +112,27 @@ function generateWrong(input) {
   return `
   <section>
     <form>
-        ${input.map(e => {
-          return `<p>$${e}</p>`;
-        })};
+        ${input}
+        <button type="submit" id="submit-button">Submit</button>
+        <button type="button" id="next-question">Next</button>
     </form>
   </section>`;
 }
+
+function generateCorrect(input) {
+  return `
+  <section>
+    <form>
+        ${input}
+        <button type="submit" id="submit-button">Submit</button>
+        <button type="button" id="next-question">Next</button>
+    </form>
+  </section>`;
+}
+
+// ${input.mape =>
+//   return `<p>${e.response}</p>`;
+// })};
 
 function renderQuestion() {
   let currentQuestion = getCurrentQuestion();
@@ -135,8 +141,14 @@ function renderQuestion() {
 }
 
 function renderWrong() {
-  let currentWrong = getWrongAnswer();
+  let currentWrong = incorrectAnswer();
   let html = generateWrong(currentWrong);
+  $('main').html(html);
+}
+
+function renderCorrect() {
+  let currectCorrect = correctAnswer();
+  let html = generateCorrect(currectCorrect);
   $('main').html(html);
 }
 
@@ -148,10 +160,10 @@ function registerListeners() {
 
     if (userAnswer === currentQuestion.correctAnswer) {
       store.score += 1;
-      $('main').append(correctAnswer());
+      $('main').append(renderCorrect());
     } else {
       store.wrong += 1;
-      $('main').append(incorrectAnswer());
+      $('main').append(renderWrong());
     }
 
     store.num += 1;
@@ -175,10 +187,10 @@ function registerListeners() {
 }
 
 function correctAnswer() {
-  $('main').append(store.correctOrNot[store.num].correct);
+  return store.correctOrNot[store.num].correct;
 }
 function incorrectAnswer() {
-  $('main').append(store.correctOrNot[store.num].incorrect);
+  return store.correctOrNot[store.num].incorrect;
 }
 
 function generateScore() {
@@ -192,6 +204,7 @@ function resetQuiz() {
   $('main').html(`${score}<button id="goBack">Click Me</button>`);
   $('main').on('click', '#goBack', function() {
     store.questionNumber = 0;
+    store.num = 0;
     renderFirstPage();
   });
 }
