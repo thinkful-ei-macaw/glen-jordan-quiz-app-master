@@ -51,7 +51,8 @@ const store = {
         'This is your nightmare!',
         "You can run, but you'll still die!"
       ],
-      correctAnswer: 'Welcome to your nightmare, bitch!'
+      correctAnswer: 'Welcome to your nightmare, bitch!',
+      imgUrl: './Images/pickle.gif'
     }
   ],
   correctOrNot: [
@@ -82,16 +83,29 @@ function clickMe() {
   });
 }
 
-//gets current question in the array
+//FUNCTIONS FOR CURRENT QUESTION IN STORE OBJECT
 function getCurrentQuestion() {
   const questionArr = store.questions;
   let currentQuestion = questionArr[store.questionNumber];
   return currentQuestion;
 }
 
+function renderQuestion() {
+  let currentQuestion = getCurrentQuestion();
+  let html = generateQuestion(currentQuestion);
+  $('main').html(html);
+}
+
 function generateQuestion(question) {
   return `
   
+  <header>
+    <ul>
+      <li>
+          Question ${store.questionNumber + 1} of ${store.questions.length}
+      </li> 
+    <ul>
+  </header>
   <img src=${question.imgUrl} />
   
   <section>${question.question}</section>
@@ -103,42 +117,11 @@ function generateQuestion(question) {
             <br>`;
           })
           .join('')}
-          <button type="submit" id="submit-button">Submit</button>
-          <button type="button" id="next-question">Next</button>
+          <button type="submit" id="submit-button">Submit</button>     
       </form>`;
 }
 
-function generateWrong(input) {
-  return `
-  <section>
-    <form>
-        ${input}
-        <button type="submit" id="submit-button">Submit</button>
-        <button type="button" id="next-question">Next</button>
-    </form>
-  </section>`;
-}
-
-function generateCorrect(input) {
-  return `
-  <section>
-    <form>
-        ${input}
-        <button type="submit" id="submit-button">Submit</button>
-        <button type="button" id="next-question">Next</button>
-    </form>
-  </section>`;
-}
-
-// ${input.mape =>
-//   return `<p>${e.response}</p>`;
-// })};
-
-function renderQuestion() {
-  let currentQuestion = getCurrentQuestion();
-  let html = generateQuestion(currentQuestion);
-  $('main').html(html);
-}
+//RENDER WRONG ANSWER RESPONSE
 
 function renderWrong() {
   let currentWrong = incorrectAnswer();
@@ -146,10 +129,57 @@ function renderWrong() {
   $('main').html(html);
 }
 
+function incorrectAnswer() {
+  return store.correctOrNot[store.num].incorrect;
+}
+
+function generateWrong(input) {
+  return `
+  <section>
+    <form>
+        ${input}     
+        <button type="button" id="next-question">Next</button>
+    </form>
+  </section>`;
+}
+
+//RENDER CORRECT ANSWER RESPONSE
+
 function renderCorrect() {
   let currectCorrect = correctAnswer();
   let html = generateCorrect(currectCorrect);
   $('main').html(html);
+}
+
+function correctAnswer() {
+  return store.correctOrNot[store.num].correct;
+}
+
+function generateCorrect(input) {
+  return `
+  <section>
+    <form>
+        ${input}
+        <button type="button" id="next-question">Next</button>
+    </form>
+  </section>`;
+}
+
+function generateScore() {
+  return `<div class='scoreDiv'>
+      <p>Your current Score is ${store.score}</p>
+      </div>`;
+}
+
+//RESET QUIZ TO BEGINNING
+function resetQuiz() {
+  const score = generateScore();
+  $('main').html(`${score}<button id="goBack">Click Me</button>`);
+  $('main').on('click', '#goBack', function() {
+    store.questionNumber = 0;
+    store.num = 0;
+    renderFirstPage();
+  });
 }
 
 function registerListeners() {
@@ -169,8 +199,6 @@ function registerListeners() {
     store.num += 1;
     store.questionNumber += 1;
 
-    $('#submit-button').hide();
-
     $('#next-question').show();
   });
 
@@ -186,36 +214,6 @@ function registerListeners() {
   });
 }
 
-function correctAnswer() {
-  return store.correctOrNot[store.num].correct;
-}
-function incorrectAnswer() {
-  return store.correctOrNot[store.num].incorrect;
-}
-
-function generateScore() {
-  return `<div class='scoreDiv'>
-      <p>Your current Score is ${store.score}</p>
-      </div>`;
-}
-
-function resetQuiz() {
-  const score = generateScore();
-  $('main').html(`${score}<button id="goBack">Click Me</button>`);
-  $('main').on('click', '#goBack', function() {
-    store.questionNumber = 0;
-    store.num = 0;
-    renderFirstPage();
-  });
-}
-
-// Used to add sibling elements to the
-// function domElementMaker(element) {
-//   const newElement = document.createElement(element);
-//   document.body.appendChild(newElement);
-//   return newElement;
-// }
-
 function renderFirstPage() {
   $('main').html(`
   
@@ -227,7 +225,7 @@ function renderFirstPage() {
 
 <div id="intro-page">
 
-<img class="circle" src=https://media1.giphy.com/media/wFbI8gwCfCxeo/giphy.gif?cid=790b7611dd0e3159809d12d9b3d4485a28d00299967efaa9&rid=giphy.gif />
+<img class="circle" src=./Images/dance.gif />
 
 </div>
 
@@ -246,9 +244,13 @@ It's time to do some Rick and Morty trivia and only the Rickest of Ricks will be
 `);
 }
 
-$(registerListeners);
-$(renderFirstPage);
-$(clickMe);
+function runQuiz() {
+  registerListeners();
+  renderFirstPage();
+  clickMe();
+}
+
+$(runQuiz);
 
 /**
  *
@@ -262,3 +264,10 @@ $(clickMe);
  * You may add attributes (classes, ids, etc) to the existing HTML elements, or link stylesheets or additional scripts if necessary
  *
  */
+
+// Used to add sibling elements to the
+// function domElementMaker(element) {
+//   const newElement = document.createElement(element);
+//   document.body.appendChild(newElement);
+//   return newElement;
+// }
