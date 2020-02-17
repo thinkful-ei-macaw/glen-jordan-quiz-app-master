@@ -34,12 +34,18 @@
     display: inline-block;
   }
 
+  #correct-img {
+    border-radius: 50%;
+    border: 2px solid black;
+    height: 300px;
+    width: 300px;
+  }
+
   #rick-intro {
     display: flex;
     justify-content: center;
     margin-top: 20px;
     font-size: 34px;
-    font-family: 'Get Schwifty Regular';
     color: white;
     text-shadow: 5px 5px 10px #97ce4c;
   }
@@ -89,11 +95,94 @@
     background-color: red;
   }
 
-  #question-box {
-    margin: auto;
+  .outer-box-question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .inner-box-question {
+    height: 500px;
+    width: 800px;
+    margin-top: 100px;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .outer-box-answers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .inner-box-answers {
+    height: 500px;
+    width: 700px;
+    margin-top: 100px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .question-score-list,
+  li {
+    display: inline;
+  }
+
+  .question-score-list,
+  ul {
+    text-align: center;
+    margin-right: 40px;
+  }
+
+  .question-list {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .question-list-form {
+    padding-left: 32%;
+  }
+
+  #submit-button-list {
+    background-color: black;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    padding: 20px 45px;
+    font-size: 18px;
+    font-family: 'Lacquer', sans-serif;
+    margin-top: 20px;
+  }
+
+  #submit-button-list:hover {
+    transition-duration: 0.4s;
+    background-color: red;
+  }
+
+  .outer-score-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .inner-score-div {
+    width: 400px;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 100px;
+  }
+
+  #go-back-btn {
+    display: flex;
+    justify-content: center;
   }
 
   body {
+    color: white;
+    text-shadow: 5px 5px 10px #97ce4c;
+    font-family: 'Lacquer', sans-serif;
     background-image: url('./Images/mortybackground.jpg');
     background-repeat: no-repeat;
     background-size: cover;

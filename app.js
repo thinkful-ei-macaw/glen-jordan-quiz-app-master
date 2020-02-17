@@ -19,7 +19,7 @@ const store = {
         "I'm in great pain"
       ],
       correctAnswer: "I'm in great pain",
-      imgUrl: './Images/peaceful.jpg'
+      imgUrl: './Images/wrecked.gif'
     },
     {
       question: ' Name the song Rick uses to save the earth',
@@ -30,8 +30,7 @@ const store = {
         'Stop, Drop, and Slitz'
       ],
       correctAnswer: 'Get Schwifty',
-      imgUrl:
-        'https://media1.giphy.com/media/tJqyalvo9ahykfykAj/giphy.gif?cid=790b7611dd0e3159809d12d9b3d4485a28d00299967efaa9&rid=giphy.gif'
+      imgUrl: './Images/dance.gif'
     },
     {
       question: 'Which implement does Rick use to travel between dimensions?',
@@ -43,7 +42,8 @@ const store = {
       question:
         'Morty does accidentally have a child who is half alien. What species is his non-human half?',
       answers: ['Smarkian', 'Cromulan', 'Gazorpazorp', 'Gromflomite'],
-      correctAnswer: 'Gazorpazorp'
+      correctAnswer: 'Gazorpazorp',
+      imgUrl: './Images/peaceful.jpg'
     },
     {
       question: "What is Scary Terry's catchphrase?",
@@ -58,16 +58,16 @@ const store = {
     }
   ],
   correctOrNot: [
-    { correct: 'GET SCHWIFTY!', incorrect: 'NOPE!' },
+    { correct: 'CORRECT!!', incorrect: 'NOPE!' },
 
-    { correct: 'THE RICKEST OF RICKS!', incorrect: 'HA HA NO...' },
+    { correct: 'THAT IS CORRECT!!', incorrect: 'HA HA NO...' },
 
-    { correct: 'TURBULENT JUICE!', incorrect: 'THE GODS ARE LAUGHING AT YOU' },
+    { correct: 'YOU ARE RIGHT!!', incorrect: 'THE GODS ARE LAUGHING AT YOU' },
 
-    { correct: 'YOU GET REAL FAKE DOORS!', incorrect: 'NO EYEHOLES FOR YOU' },
+    { correct: 'YOU GOT IT!!', incorrect: 'NO EYEHOLES FOR YOU' },
 
     {
-      correct: 'THE CITIDEL OF RICKS WELCOMES YOU!',
+      correct: 'WE HAVE A WINNER!!',
       incorrect: 'CONSPIRING WITH A ROGUE SUMMER I SEE...'
     }
   ],
@@ -99,19 +99,20 @@ function renderQuestion() {
 
 function generateQuestion(question) {
   return `
-  <div class="question-box">
-  <header>
+  <div class="outer-box-question">
+  <div class="inner-box-question">
+  <header class="question-score-list">
     <ul>
       <li>
-          Question ${store.num + 1} of ${store.questions.length}
+          Question ${store.num + 1} of ${store.questions.length} /
       </li> 
       <li>
           Your Current Score is ${store.score}
       </li>
     <ul>
   </header>
-  <section>${question.question}</section>
-      <form>  
+  <section class="question-list">${question.question}</section>
+      <form class="question-list-form">  
         ${question.answers
           .map((e, index) => {
             return `<input id="answer ${index}" name="questionDisplay" type="radio" value="${e}" required />
@@ -119,8 +120,10 @@ function generateQuestion(question) {
             <br>`;
           })
           .join('')}
-          <button type="submit" id="submit-button">Submit</button>     
+          <button type="submit" id="submit-button-list">PRESS IF YOU ARE SURE..</button>
       </form>
+   
+      </div>
       </div>`;
 }
 
@@ -134,7 +137,8 @@ function renderWrong(answer) {
 function generateWrong(input) {
   let currentWrong = store.correctOrNot[store.num].incorrect;
   return `
-  <section>
+  <div class="outer-box-answers">
+  <section class="inner-box-answers">
     <form>
         <h1>${currentWrong}</h1> 
         <p>You chose "${input}"</p> 
@@ -143,7 +147,8 @@ function generateWrong(input) {
         }"</p>
         <button type="button" id="next-question">Next</button>
     </form>
-  </section>`;
+  </section>
+  </div>`;
 }
 
 //RENDER CORRECT ANSWER RESPONSE
@@ -156,27 +161,39 @@ function renderCorrect() {
 function generateCorrect() {
   let currentCorrect = store.correctOrNot[store.num].correct;
   return `
-  <section>
+  <div class="outer-box-answers">
+  <section class="inner-box-answers">
     <form>
       <h1>${currentCorrect}</h1>
+      <img id="correct-img" src=${store.questions[store.num].imgUrl} />
       <p>That was correct</p>
       <button type="button" id="next-question">Next</button>
     </form>
-  </section>`;
+  </section>
+  </div>`;
 }
 
 function generateScore() {
   if (store.score === 0) {
-    return `<div class='scoreDiv'>
-    <p>Your current Score is ${store.score} YOU GOT NONE OF THEM RIGHT!!</p>
+    return `<div class='outer-score-div'>
+    <div class='inner-score-div'>
+    <p>Your current Score is ${store.score}</p> 
+    <p>YOU GOT NONE OF THEM RIGHT!!</p>
+    </div>
     </div>`;
   } else if (store.score > 0 && store.score < store.questions.length) {
-    return `<div class='scoreDiv'>
-    <p>Your current Score is ${store.score} Not too bad, but you can do better!</p>
+    return `<div class='outer-score-div'>
+    <div class='inner-score-div'>
+    <p>Your current Score is ${store.score}<p> 
+    <p>Not too bad, but you can do better!</p>
+    </div>
     </div>`;
   } else if (store.score === store.questions.length) {
-    return `<div class='scoreDiv'>
-    <p>Your current Score is ${store.score} YOU ARE THE RICKEST OF RICKS!</p>
+    return `<div class='outer-score-div'>
+    <div class='inner-score-div'>
+    <p>Your current Score is ${store.score}</p>
+    <p>YOU ARE THE RICKEST OF RICKS!</p>
+    </div>
     </div>`;
   }
 }
@@ -186,7 +203,10 @@ function generateScore() {
 //RESET QUIZ TO BEGINNING
 function resetQuiz() {
   const score = generateScore();
-  $('main').html(`${score}<button id="goBack">Click Me</button>`);
+  $('main').html(`${score}
+  <div id="go-back-btn">
+  <button id="goBack">Click Me</button>
+  </div>`);
   $('main').on('click', '#goBack', function() {
     store.num = 0;
     store.score = 0;
