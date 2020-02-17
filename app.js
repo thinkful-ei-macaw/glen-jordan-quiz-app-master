@@ -19,7 +19,7 @@ const store = {
         "I'm in great pain"
       ],
       correctAnswer: "I'm in great pain",
-      imgUrl: "url('./Images/peaceful.jpg')"
+      imgUrl: './Images/peaceful.jpg'
     },
     {
       question: ' Name the song Rick uses to save the earth',
@@ -99,10 +99,8 @@ function renderQuestion() {
 
 function generateQuestion(question) {
   return `
-  
- 
+  <div class="question-box">
   <header>
-  ${store.questions[0].imgUrl}
     <ul>
       <li>
           Question ${store.num + 1} of ${store.questions.length}
@@ -122,7 +120,8 @@ function generateQuestion(question) {
           })
           .join('')}
           <button type="submit" id="submit-button">Submit</button>     
-      </form>`;
+      </form>
+      </div>`;
 }
 
 //RENDER WRONG ANSWER RESPONSE
@@ -231,8 +230,6 @@ function renderFirstPage() {
   <header id="rick-intro">
     <h1>THE RICK AND MORTY QUIZ</h1>
   </header>
-  <div id="intro-page">
-  </div>
   <div id="intro-info">
         <h2> The Best Rick and Morty quiz ever </h2>
         <h3>

@@ -16,13 +16,9 @@
 
 #js-restart-btn {
 } */
+@import url('https://fonts.googleapis.com/css?family=Lacquer&display=swap');
 
 @media screen and (max-width: 1920px) {
-  #intro-page {
-    display: flex;
-    justify-content: center;
-  }
-
   .circle {
     height: 400px;
     border-radius: 50%;
@@ -44,6 +40,8 @@
     margin-top: 20px;
     font-size: 34px;
     font-family: 'Get Schwifty Regular';
+    color: white;
+    text-shadow: 5px 5px 10px #97ce4c;
   }
 
   #intro-info {
@@ -52,8 +50,17 @@
     flex-wrap: wrap;
     padding-top: 60px;
     padding-left: 90px;
-    color: #97ce4c;
+    color: white;
     text-shadow: 5px 5px 10px #97ce4c;
+    font-family: 'Lacquer', sans-serif;
+  }
+
+  #intro-info h2 {
+    margin-bottom: 35px;
+  }
+
+  #intro-info h2 {
+    font-size: 27px;
   }
 
   #schwift {
@@ -64,10 +71,33 @@
     display: none;
   }
 
+  #js-start-btn {
+    background-color: black;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    padding: 20px 45px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    font-family: 'Lacquer', sans-serif;
+  }
+
+  #js-start-btn:hover {
+    transition-duration: 0.4s;
+    background-color: red;
+  }
+
+  #question-box {
+    margin: auto;
+  }
+
   body {
     background-image: url('./Images/mortybackground.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 50% 40%;
+    padding: 0;
   }
 }
