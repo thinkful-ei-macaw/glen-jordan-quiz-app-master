@@ -19,7 +19,9 @@ const store = {
         "I'm in great pain"
       ],
       correctAnswer: "I'm in great pain",
-      imgUrl: './Images/wrecked.gif'
+      realAnswer: "Wubba Lubba Dub-Dub is Rick's catchphrase, which he recurrently uses in the show, mostly in season one. He uses this phrase every time he's happy or makes a joke. Birdperson said 'wubba lubba dub dub' means 'I am in great pain'.",
+      imgUrl: './Images/wrecked.gif',
+      questionImg: './Images/happy.gif'
     },
     {
       question: ' Name the song Rick uses to save the earth',
@@ -30,20 +32,26 @@ const store = {
         'Stop, Drop, and Slitz'
       ],
       correctAnswer: 'Get Schwifty',
-      imgUrl: './Images/dance.gif'
+      realAnswer: "In desperation, Rick and Morty compose and perform the song 'Get Schwifty'. The head is pleased and transports the entire Earth to an intergalactic musical competition, viewed by more Cromulons, where the losers' planets are obliterated.",
+      imgUrl: './Images/schwifty.gif',
+      questionImg: './Images/happy.gif'
     },
     {
       question: 'Which implement does Rick use to travel between dimensions?',
       answers: ['Rift Ray', 'Jump Laser', 'Interdimensional Ray', 'Portal Gun'],
       correctAnswer: 'Portal Gun',
-      imgUrl: './Images/wrecked.gif'
+      realAnswer: "With this gadget Rick can travel not only to other places in the known universe, but also to other dimensions. It is highly coveted by the Galactic Federation, as the inter-dimensional travel seems to be a feature that only Rick's portal gun possesses.",
+      imgUrl: './Images/wrecked.gif',
+      questionImg: './Images/happy.gif'
     },
     {
       question:
         'Morty does accidentally have a child who is half alien. What species is his non-human half?',
       answers: ['Smarkian', 'Cromulan', 'Gazorpazorp', 'Gromflomite'],
       correctAnswer: 'Gazorpazorp',
-      imgUrl: './Images/peaceful.jpg'
+      realAnswer: "Gazorpians are a species of large humanoid aliens living on Gazorpazorp. Their species is divided into upper class and lower class by genders.",
+      imgUrl: './Images/peaceful.jpg',
+      questionImg: './Images/happy.gif'
     },
     {
       question: "What is Scary Terry's catchphrase?",
@@ -54,21 +62,23 @@ const store = {
         "You can run, but you'll still die!"
       ],
       correctAnswer: 'Welcome to your nightmare, bitch!',
-      imgUrl: './Images/pickle.gif'
+      realAnswer: "He is known for saying 'bitch' at the end of almost every sentence. After Scary Terry spots Rick Sanchez and Morty Smith, Rick aptly describes him as a 'legally-safe knockoff of an '80s horror character with miniature swords for fingers instead of knives'.",
+      imgUrl: './Images/pickle.gif',
+      questionImg: './Images/happy.gif'
     }
   ],
   correctOrNot: [
-    { correct: 'CORRECT!!', incorrect: 'NOPE!' },
+    { correct: 'CORRECT!!', incorrect: 'INCORRECT!'},
 
-    { correct: 'THAT IS CORRECT!!', incorrect: 'HA HA NO...' },
+    { correct: 'THAT IS CORRECT!!', incorrect: 'TOTALLY WRONG!' },
 
-    { correct: 'YOU ARE RIGHT!!', incorrect: 'THE GODS ARE LAUGHING AT YOU' },
+    { correct: 'YOU ARE RIGHT!!', incorrect: 'NOT THE RIGHT ANSWER!' },
 
-    { correct: 'YOU GOT IT!!', incorrect: 'NO EYEHOLES FOR YOU' },
+    { correct: 'YOU GOT IT!!', incorrect: 'NOPE!' },
 
     {
-      correct: 'WE HAVE A WINNER!!',
-      incorrect: 'CONSPIRING WITH A ROGUE SUMMER I SEE...'
+      correct: 'YOU CHOSE WISELY!',
+      incorrect: 'INCORRECT YOU!'
     }
   ],
   score: 0,
@@ -112,15 +122,19 @@ function generateQuestion(question) {
     <ul>
   </header>
   <section class="question-list">${question.question}</section>
+    <img class="question-circle-img"
+      src =${
+        store.questions[store.num].questionImg
+      } alt="A Rick gif displayed on question"/>
       <form class="question-list-form">  
         ${question.answers
           .map((e, index) => {
             return `<input id="answer ${index}" name="questionDisplay" type="radio" value="${e}" required />
-            <label id="btnAnswers" for="answer${index}">${e}</label>
+            <label id="btn-answers" for="answer${index}">${e}</label>
             <br>`;
           })
           .join('')}
-          <button type="submit" id="submit-button-list">PRESS IF YOU ARE SURE..</button>
+          <button type="submit" id="submit-button-list">SUBMIT</button>
       </form>
    
       </div>
@@ -142,9 +156,10 @@ function generateWrong(input) {
     <form>
         <h1>${currentWrong}</h1> 
         <p>You chose "${input}"</p> 
-        <p>The correct answer was "${
-          store.questions[store.num].correctAnswer
-        }"</p>
+        <p>The correct answer was "${store.questions[store.num].correctAnswer}"</p>
+        <p>
+          "${store.questions[store.num].realAnswer}"
+        </p>
         <button type="button" id="next-question">Next</button>
     </form>
   </section>
@@ -262,6 +277,7 @@ function renderFirstPage() {
   </div>
 `);
 }
+
 
 function runQuiz() {
   registerListeners();

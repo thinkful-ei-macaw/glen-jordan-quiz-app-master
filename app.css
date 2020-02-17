@@ -7,15 +7,6 @@
   *
 */
 
-/* Button Actions */
-/* #js-start-btn {
-}
-
-#js-next-btn {
-}
-
-#js-restart-btn {
-} */
 @import url('https://fonts.googleapis.com/css?family=Lacquer&display=swap');
 
 @media screen and (max-width: 1920px) {
@@ -30,8 +21,9 @@
   }
 
   #answer,
-  #btnAnswer {
+  #btn-answers {
     display: inline-block;
+    padding: 10px 0 10px 0;
   }
 
   #correct-img {
@@ -39,6 +31,12 @@
     border: 2px solid black;
     height: 300px;
     width: 300px;
+  }
+
+  .correct-response {
+    margin-left: 40px;
+    margin-right: 40px;
+
   }
 
   #rick-intro {
@@ -57,7 +55,6 @@
     padding-top: 60px;
     padding-left: 90px;
     color: white;
-    text-shadow: 5px 5px 10px #97ce4c;
     font-family: 'Lacquer', sans-serif;
   }
 
@@ -92,7 +89,7 @@
 
   #js-start-btn:hover {
     transition-duration: 0.4s;
-    background-color: red;
+    background-color: blue;
   }
 
   .outer-box-question {
@@ -103,10 +100,9 @@
   }
 
   .inner-box-question {
-    height: 500px;
-    width: 800px;
-    margin-top: 100px;
-    background-color: rgba(0, 0, 0, 0.3);
+    margin-top: 60px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding-right: 10px;
   }
 
   .outer-box-answers {
@@ -118,15 +114,19 @@
 
   .inner-box-answers {
     height: 500px;
-    width: 700px;
+    width: 800px;
+    padding-right: 20px;
+    padding-left: 20px;
     margin-top: 100px;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.8);
+    font-size: 20px;
   }
 
   .question-score-list,
   li {
     display: inline;
+    font-size: 20px;
   }
 
   .question-score-list,
@@ -137,27 +137,46 @@
 
   .question-list {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    padding-left: 30px;
+    padding-right: 30px;
   }
 
   .question-list-form {
-    padding-left: 32%;
+    padding: 0 0 20px 20px;
+    font-size: 20px;
+  }
+
+  .question-circle-img {
+    border-radius: 50%;
+    height: 280px;
+    width: 280px;
+    text-align: center;
+    border-radius: solid black 2px;
+    box-shadow: 2px 2px 15px #1dcaff;
+    margin: 0 auto;
+    display: block;
   }
 
   #submit-button-list {
-    background-color: black;
+    display: flex;
+    justify-content: center;
+    background-color: blue;
     border: none;
     border-radius: 3px;
     color: white;
-    padding: 20px 45px;
-    font-size: 18px;
-    font-family: 'Lacquer', sans-serif;
-    margin-top: 20px;
+    font-size: 20px;
+    width: 100%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   #submit-button-list:hover {
     transition-duration: 0.4s;
-    background-color: red;
+    background-color: black;
   }
 
   .outer-score-div {
@@ -168,7 +187,8 @@
   }
 
   .inner-score-div {
-    width: 400px;
+    width: 600px;
+    background-color: rgba(0, 0, 0, 0.8);
     font-size: 30px;
     text-align: center;
     margin-top: 100px;
@@ -177,16 +197,55 @@
   #go-back-btn {
     display: flex;
     justify-content: center;
+    width: 600px;
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-left: 500px;
   }
 
   body {
     color: white;
-    text-shadow: 5px 5px 10px #97ce4c;
-    font-family: 'Lacquer', sans-serif;
+    box-sizing: border-box;
     background-image: url('./Images/mortybackground.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover no-repeat;
     background-position: 50% 40%;
+    font-family: Arial, Helvetica, sans-serif;
     padding: 0;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  #rick-intro {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 34px;
+    color: white;
+    text-shadow: 5px 5px 10px #97ce4c;
+  }
+  #intro-info {
+    text-align: center;
+    padding: 60px 30px 0 30px;
+    color: white;
+    font-family: 'Lacquer', sans-serif;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  #rick-intro {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    font-size: 20px;
+    color: white;
+    text-shadow: 5px 5px 10px #97ce4c;
+  }
+
+  #intro-info {
+    flex-direction: column;
+    align-items: left;
+    flex-wrap: wrap;
+    padding-top: 60px;
+    padding-left: 90px;
+    color: white;
+    font-family: 'Lacquer', sans-serif;
   }
 }
