@@ -20,7 +20,7 @@ const store = {
       ],
       correctAnswer: "I'm in great pain",
       realAnswer: "Wubba Lubba Dub-Dub is Rick's catchphrase, which he recurrently uses in the show, mostly in season one. He uses this phrase every time he's happy or makes a joke. Birdperson said 'wubba lubba dub dub' means 'I am in great pain'.",
-      imgUrl: './Images/wrecked.gif',
+      imgUrl: './Images/dance.gif',
       questionImg: './Images/happy.gif'
     },
     {
@@ -41,7 +41,7 @@ const store = {
       answers: ['Rift Ray', 'Jump Laser', 'Interdimensional Ray', 'Portal Gun'],
       correctAnswer: 'Portal Gun',
       realAnswer: "With this gadget Rick can travel not only to other places in the known universe, but also to other dimensions. It is highly coveted by the Galactic Federation, as the inter-dimensional travel seems to be a feature that only Rick's portal gun possesses.",
-      imgUrl: './Images/wrecked.gif',
+      imgUrl: './Images/portal.gif',
       questionImg: './Images/happy.gif'
     },
     {
@@ -50,7 +50,7 @@ const store = {
       answers: ['Smarkian', 'Cromulan', 'Gazorpazorp', 'Gromflomite'],
       correctAnswer: 'Gazorpazorp',
       realAnswer: "Gazorpians are a species of large humanoid aliens living on Gazorpazorp. Their species is divided into upper class and lower class by genders.",
-      imgUrl: './Images/peaceful.jpg',
+      imgUrl: './Images/Gazorpazorp.gif',
       questionImg: './Images/happy.gif'
     },
     {
@@ -63,7 +63,7 @@ const store = {
       ],
       correctAnswer: 'Welcome to your nightmare, bitch!',
       realAnswer: "He is known for saying 'bitch' at the end of almost every sentence. After Scary Terry spots Rick Sanchez and Morty Smith, Rick aptly describes him as a 'legally-safe knockoff of an '80s horror character with miniature swords for fingers instead of knives'.",
-      imgUrl: './Images/pickle.gif',
+      imgUrl: './Images/terry.gif',
       questionImg: './Images/happy.gif'
     }
   ],
@@ -181,7 +181,7 @@ function generateCorrect() {
     <form>
       <h1>${currentCorrect}</h1>
       <img id="correct-img" src=${store.questions[store.num].imgUrl} />
-      <p>That was correct</p>
+      <p id="you-are-correct">That was correct</p>
       <button type="button" id="next-question">Next</button>
     </form>
   </section>
@@ -272,7 +272,7 @@ function renderFirstPage() {
         <p>ONLY the Rickest of Ricks will be able to pass.</p>
     </h3>
     <div id = "schwift">
-      <button id = "js-start-btn">GET SCHWIFTY</button> 
+      <button id = "js-start-btn">LET'S GO!</button> 
     </div>
   </div>
 `);
